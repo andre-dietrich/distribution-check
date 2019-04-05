@@ -151,7 +151,7 @@ def plot(fcts, data):
     import numpy as np
 
     # plot data
-    plt.hist(data, normed=True, bins=max(10, len(data)/10))
+    plt.hist(data, normed=True, bins=max(10, round(len(data)/10)))
 
     # plot fitted probability
     for fct in fcts:
@@ -189,16 +189,16 @@ if __name__ == '__main__':
     parser.add_option("-p", "--plot",      dest="plot",      default=False, action="store_true", help="plot the best result with matplotlib (default=False)")
     parser.add_option("-i", "--iterative", dest="iterative", default=1,     type="int",          help="define number of iterative checks (default=1)")
     parser.add_option("-e", "--exclude",   dest="exclude",   default=10.0,  type="float",        help="amount (in per cent) of exluded samples for each iteration (default=10.0%)" )
-    parser.add_option("-n", "--processes", dest="processes", default=-1,    type="int",          help="number of process used in parallel (default=-1...all)")
+    parser.add_option("-n", "--processes", dest="processes", default=1,     type="int",          help="number of process used in parallel (default=1)")
     parser.add_option("-d", "--densities", dest="densities", default=False, action="store_true", help="")
     parser.add_option("-g", "--generate",  dest="generate",  default=False, action="store_true", help="generate an example file")
 
     (options, args) = parser.parse_args()
 
     if options.generate:
-        print("generating random data 'example-halflogistic.dat' ... ", end="")
-        f = open("example-halflogistic.dat", "w")
-        f.writelines([str(s)+"\n" for s in scipy.stats.halflogistic().rvs(500)])
+        print("generating random data 'example-mielke.dat' ... ", end="")
+        f = open("example-mielke.dat", "w")
+        f.writelines([str(s)+"\n" for s in scipy.stats.mielke(1,3).rvs(250)])
         f.close()
         print("done")
         quit()
